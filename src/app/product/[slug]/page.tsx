@@ -1,4 +1,6 @@
+import { computeProductTotalPrice } from "@/helpers/product";
 import { prismaClient } from "@/lib/prisma";
+import ProductInfo from "./components/productInfo";
 import ProductsImages from "./components/productsImage";
 
 interface ProductDetailsProps {
@@ -19,6 +21,8 @@ const ProductDetails = async ({ params: { slug } }: ProductDetailsProps) => {
   return (
     <div className="px-8 py-5">
       <ProductsImages imagesUrls={product.imageUrls} name={product.name} />
+
+      <ProductInfo product={computeProductTotalPrice(product)} />
     </div>
   );
 };
