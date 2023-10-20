@@ -8,12 +8,12 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const formatedTotalPrice = new Intl.NumberFormat("BRL", {
+  const formatedTotalPrice = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
   }).format(product.totalPrice);
 
-  const formatedBasePrice = new Intl.NumberFormat("BRL", {
+  const formatedBasePrice = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
   }).format(Number(product.basePrice));

@@ -3,7 +3,7 @@ interface SectionTitleProps {
 }
 
 const SectionTitle = ({ title }: SectionTitleProps) => {
-  return <h2 className="font-semibold uppercase">{title}</h2>;
+  return <h2 className="mb-5 font-semibold uppercase">{title}</h2>;
 };
 
 export default SectionTitle;

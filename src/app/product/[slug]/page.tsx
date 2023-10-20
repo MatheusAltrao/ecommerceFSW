@@ -1,3 +1,4 @@
+import SectionTitle from "@/app/(home)/components/sectionTitle";
 import ProductList from "@/components/ui/productList";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { prismaClient } from "@/lib/prisma";
@@ -38,7 +39,7 @@ const ProductDetails = async ({ params: { slug } }: ProductDetailsProps) => {
       <ProductInfo product={computeProductTotalPrice(product)} />
 
       <div className="mt-10 ">
-        <h3 className="mb-5 font-semibold">PRODUTOS RECOMENDADOS</h3>
+        <SectionTitle title="PRODUTOS RECOMENDADOS" />
         <ProductList products={product.category.products} />
       </div>
     </div>

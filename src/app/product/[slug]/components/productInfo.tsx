@@ -29,12 +29,12 @@ const ProductInfo = ({
     setQuantity((prev) => prev + 1);
   };
 
-  const formatedTotalPrice = new Intl.NumberFormat("BRL", {
+  const formatedTotalPrice = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
   }).format(totalPrice);
 
-  const formatedBasePrice = new Intl.NumberFormat("BRL", {
+  const formatedBasePrice = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
   }).format(Number(basePrice));
