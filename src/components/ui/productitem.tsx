@@ -52,7 +52,9 @@ const ProductItem = ({ product }: ProductItemProps) => {
         )}
 
         {product.discountPercentage == 0 && (
-          <span className="p-1 font-semibold ">{formatedBasePrice}</span>
+          <div className="my-1">
+            <span className="font-semibold ">{formatedBasePrice}</span>
+          </div>
         )}
       </div>
     </div>
