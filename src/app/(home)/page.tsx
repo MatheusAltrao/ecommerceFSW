@@ -21,6 +21,7 @@ export default async function Home() {
         className="h-auto w-full object-cover"
         sizes="100vw"
         alt="55% de desconto"
+        priority={true}
       />
 
       <div className="mt-8">

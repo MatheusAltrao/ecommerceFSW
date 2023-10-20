@@ -15,7 +15,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
   const formatedBasePrice = new Intl.NumberFormat("BRL", {
     style: "currency",
     currency: "BRL",
-  }).format(product.basePrice);
+  }).format(Number(product.basePrice));
 
   return (
     <div className="max-w-w-[156px] flex flex-col gap-4">
@@ -43,8 +43,8 @@ const ProductItem = ({ product }: ProductItemProps) => {
         </p>
 
         {product.discountPercentage > 0 && (
-          <div className="my-1  ">
-            <span className="p-1 font-semibold ">{formatedTotalPrice}</span>
+          <div className="my-1   ">
+            <span className="font-semibold ">{formatedTotalPrice}</span>
             <span className="ml-1 text-sm text-zinc-600 line-through ">
               {formatedBasePrice}
             </span>
