@@ -38,14 +38,14 @@ export default async function Home() {
   });
 
   return (
-    <div className="px-8 py-5">
+    <div className="space-y-8 px-8 py-5">
       <PromoBanner src="/images/banner-01.png" alt="55% de desconto" />
 
-      <div className="mt-8">
+      <div>
         <Categories />
       </div>
 
-      <div className="mt-8">
+      <div>
         <SectionTitle title="Ofertas" />
         <div className="mb-8 mt-5">
           <ProductList products={deals} />
@@ -57,7 +57,7 @@ export default async function Home() {
         alt="55% de desconto em mouses!"
       />
 
-      <div className="mt-8">
+      <div>
         <SectionTitle title="MOUSES" />
         <div className="mb-8 mt-5">
           <ProductList products={mouses} />
@@ -69,10 +69,17 @@ export default async function Home() {
         alt="20% de desconto em fones!"
       />
 
-      <div className="mt-8">
+      <div>
         <SectionTitle title="headphones" />
         <div className="mb-8 mt-5">
           <ProductList products={headphones} />
+        </div>
+      </div>
+
+      <div>
+        <SectionTitle title="teclados" />
+        <div className="mb-8 mt-5">
+          <ProductList products={keyboards} />
         </div>
       </div>
     </div>
