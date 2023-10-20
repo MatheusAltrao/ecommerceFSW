@@ -47,3 +47,7 @@
     @apply h-full;
   }
 }
+
+.bg-gradient {
+  background: linear-gradient(45deg, #5033c3 0%, rgba(80, 51, 195, 0.2) 100%);
+}
