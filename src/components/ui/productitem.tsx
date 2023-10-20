@@ -18,7 +18,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
   }).format(Number(product.basePrice));
 
   return (
-    <div className="max-w-w-[156px] flex flex-col gap-4">
+    <div className="flex max-w-[200px] flex-col gap-4">
       <div className="relative flex h-[170px]  items-center justify-center rounded-2xl bg-accent">
         {product.discountPercentage > 0 && (
           <div className=" absolute left-2 top-2 flex items-center justify-center gap-1 rounded-3xl bg-primary  px-2 font-semibold">
@@ -28,7 +28,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
         )}
 
         <Image
-          className="h-[90px] w-auto object-cover"
+          className="h-[90px] w-[200px] object-contain"
           width={0}
           height={0}
           src={product.imageUrls[0]}
