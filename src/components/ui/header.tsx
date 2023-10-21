@@ -13,6 +13,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
 import { Button } from "./button";
 import { Card } from "./card";
+import Cart from "./cart";
 import {
   Sheet,
   SheetClose,
@@ -79,7 +80,7 @@ const Header = () => {
                 variant="outline"
                 className="w-full justify-start gap-4"
               >
-                <LogInIcon size={16} />
+                <LogInIcon size={18} />
                 Fazer Login
               </Button>
             )}
@@ -90,7 +91,7 @@ const Header = () => {
                 variant="outline"
                 className="w-full justify-start gap-4"
               >
-                <LogOutIcon size={16} />
+                <LogOutIcon size={18} />
                 Sair
               </Button>
             )}
@@ -101,14 +102,14 @@ const Header = () => {
                   variant="outline"
                   className="w-full justify-start gap-4"
                 >
-                  <HomeIcon size={16} />
+                  <HomeIcon size={18} />
                   Início
                 </Button>
               </Link>
             </SheetClose>
 
             <Button variant="outline" className="w-full justify-start gap-4">
-              <PercentIcon size={16} />
+              <PercentIcon size={18} />
               Ofertas
             </Button>
 
@@ -118,7 +119,7 @@ const Header = () => {
                   variant="outline"
                   className="w-full justify-start gap-4"
                 >
-                  <LayoutPanelLeft size={16} />
+                  <LayoutPanelLeft size={18} />
                   Catálogo
                 </Button>
               </Link>
@@ -133,9 +134,17 @@ const Header = () => {
         </h1>
       </Link>
 
-      <Button size="icon" variant="outline">
-        <ShoppingCartIcon />
-      </Button>
+      <Sheet>
+        <SheetTrigger asChild>
+          <Button size="icon" variant="outline">
+            <ShoppingCartIcon />
+          </Button>
+        </SheetTrigger>
+
+        <SheetContent>
+          <Cart />
+        </SheetContent>
+      </Sheet>
     </Card>
   );
 };

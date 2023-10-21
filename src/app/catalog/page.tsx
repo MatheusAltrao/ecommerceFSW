@@ -12,7 +12,7 @@ const Catalog = async () => {
         variant="outline"
         className="  flex h-8 w-36 items-center justify-center gap-2 rounded-2xl border-2 border-primary px-3 py-2 uppercase"
       >
-        <LayoutPanelLeft size={16} />
+        <LayoutPanelLeft size={18} />
         CATÁLOGO
       </Badge>
 

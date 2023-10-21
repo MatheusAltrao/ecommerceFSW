@@ -11,7 +11,7 @@ const DiscountBadge = ({ children, className, ...props }: BadgeProps) => {
       )}
       {...props}
     >
-      <ArrowDownIcon size={16} />
+      <ArrowDownIcon size={18} />
       {children}
     </div>
   );

@@ -2,20 +2,18 @@
 import { Button } from "@/components/ui/button";
 import DiscountBadge from "@/components/ui/discountBadge";
 import { ProductWithTotalPrice } from "@/helpers/product";
+import { CartContext } from "@/providers/cart";
 import { ArrowLeftIcon, ArrowRightIcon, TruckIcon } from "lucide-react";
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 interface ProductInfoProps {
-  product: Pick<
-    ProductWithTotalPrice,
-    "basePrice" | "description" | "discountPercentage" | "totalPrice" | "name"
-  >;
+  product: ProductWithTotalPrice;
 }
 
-const ProductInfo = ({
-  product: { basePrice, description, discountPercentage, totalPrice, name },
-}: ProductInfoProps) => {
+const ProductInfo = ({ product }: ProductInfoProps) => {
   const [quantity, setQuantity] = useState(1);
+
+  const { addProductToCart } = useContext(CartContext);
 
   const handleDecreaseQuantityClick = () => {
     setQuantity((prev) => (prev === 1 ? prev : prev - 1));
@@ -28,25 +26,29 @@ const ProductInfo = ({
   const formatedTotalPrice = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
-  }).format(totalPrice);
+  }).format(product.totalPrice);
 
   const formatedBasePrice = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
-  }).format(Number(basePrice));
+  }).format(Number(product.basePrice));
+
+  const handleAddToCard = () => {
+    addProductToCart({ ...product, quantity });
+  };
 
   return (
     <div className=" py-5">
       <p className="text-sm font-light text-zinc-500">Novo | 100 vendidos</p>
-      <h2 className="mt-1 text-lg">{name}</h2>
+      <h2 className="mt-1 text-lg">{product.name}</h2>
       <p className="text-sm font-light text-primary ">Disponível em estoque </p>
 
       <div className="mt-3">
         <div className=" flex items-center gap-2">
           <span className="text-xl font-semibold">{formatedTotalPrice}</span>
-          {discountPercentage > 0 && (
+          {product.discountPercentage > 0 && (
             <DiscountBadge>
-              <p>{discountPercentage}%</p>
+              <p>{product.discountPercentage}%</p>
             </DiscountBadge>
           )}
         </div>
@@ -78,10 +80,13 @@ const ProductInfo = ({
       <div className="my-8">
         <h3 className="mb-2 font-semibold">Descrição</h3>
 
-        <p className="text-sm text-zinc-500">{description}</p>
+        <p className="text-sm text-zinc-500">{product.description}</p>
       </div>
 
-      <Button className=" w-full rounded font-bold uppercase ">
+      <Button
+        onClick={handleAddToCard}
+        className=" w-full rounded font-bold uppercase "
+      >
         ADICIONAR AO CARRINHO
       </Button>
 
