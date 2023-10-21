@@ -51,3 +51,12 @@
 .bg-gradient {
   background: linear-gradient(45deg, #5033c3 0%, rgba(80, 51, 195, 0.2) 100%);
 }
+
+.scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #171717;
+  border-radius: 9999px;
+}
