@@ -60,3 +60,7 @@
   background: #171717;
   border-radius: 9999px;
 }
+
+.separator {
+  @apply h-[1px] w-full bg-zinc-700;
+}

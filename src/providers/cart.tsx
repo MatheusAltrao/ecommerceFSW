@@ -1,7 +1,7 @@
 "use client";
 
 import { ProductWithTotalPrice } from "@/helpers/product";
-import { ReactNode, createContext, useState } from "react";
+import { ReactNode, createContext, useMemo, useState } from "react";
 
 export interface CartProduct extends ProductWithTotalPrice {
   quantity: number;
@@ -12,6 +12,9 @@ interface ICartContext {
   cartTotalPrice: number;
   cartBasePrice: number;
   cartTotalDiscount: number;
+  subTotal: number;
+  total: number;
+  totalDiscount: number;
   addProductToCart: (product: CartProduct) => void;
   decreaseproductQuantity: (productId: string) => void;
   increaseproductQuantity: (productId: string) => void;
@@ -23,6 +26,9 @@ export const CartContext = createContext<ICartContext>({
   cartTotalPrice: 0,
   cartBasePrice: 0,
   cartTotalDiscount: 0,
+  subTotal: 0,
+  total: 0,
+  totalDiscount: 0,
   addProductToCart: () => {},
   decreaseproductQuantity: () => {},
   increaseproductQuantity: () => {},
@@ -32,8 +38,28 @@ export const CartContext = createContext<ICartContext>({
 const CartProvider = ({ children }: { children: ReactNode }) => {
   const [products, setProducts] = useState<CartProduct[]>([]);
 
-  //se  produto ja estiver no carrinho, apenas aumente sua quatidade
+  /* 
+      const formatedTotalPrice = new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(product.totalPrice);
+       */
 
+  const subTotal = useMemo(() => {
+    return products.reduce((acc, products) => {
+      return acc + Number(products.basePrice);
+    }, 0);
+  }, [products]);
+
+  const total = useMemo(() => {
+    return products.reduce((acc, product) => {
+      return acc + Number(product.totalPrice);
+    }, 0);
+  }, [products]);
+
+  const totalDiscount = total - subTotal;
+
+  //se  produto ja estiver no carrinho, apenas aumente sua quatidade
   const addProductToCart = (product: CartProduct) => {
     // se o produto já estiver no carrinho, apenas aumente a sua quantidade
     const productIsAlreadyOnCart = products.some(
@@ -109,6 +135,9 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
           addProductToCart,
           decreaseproductQuantity,
           increaseproductQuantity,
+          subTotal,
+          total,
+          totalDiscount,
           removeProducts,
           cartTotalPrice: 0,
           cartBasePrice: 0,
