@@ -9,6 +9,9 @@ interface CartItemProps {
 }
 
 const CartItem = ({ product }: CartItemProps) => {
+  const { decreaseproductQuantity, increaseproductQuantity } =
+    useContext(CartContext);
+
   const formatedTotalPrice = new Intl.NumberFormat("pt-BR", {
     style: "currency",
     currency: "BRL",
@@ -19,10 +22,12 @@ const CartItem = ({ product }: CartItemProps) => {
     currency: "BRL",
   }).format(Number(product.basePrice));
 
-  const { decreaseproductQuantity } = useContext(CartContext);
-
   const handleDecreaseProduct = () => {
     decreaseproductQuantity(product.id);
+  };
+
+  const handleIncreaseproductQuantity = () => {
+    increaseproductQuantity(product.id);
   };
 
   return (
@@ -70,7 +75,7 @@ const CartItem = ({ product }: CartItemProps) => {
             size="icon"
             variant="outline"
             className="h-8 w-8"
-            onClick={() => {}}
+            onClick={handleIncreaseproductQuantity}
           >
             <ArrowRightIcon size={18} />
           </Button>
