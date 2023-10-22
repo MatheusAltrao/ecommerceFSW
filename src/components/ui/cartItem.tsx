@@ -9,7 +9,7 @@ interface CartItemProps {
 }
 
 const CartItem = ({ product }: CartItemProps) => {
-  const { decreaseproductQuantity, increaseproductQuantity } =
+  const { decreaseproductQuantity, increaseproductQuantity, removeProducts } =
     useContext(CartContext);
 
   const formatedTotalPrice = new Intl.NumberFormat("pt-BR", {
@@ -28,6 +28,10 @@ const CartItem = ({ product }: CartItemProps) => {
 
   const handleIncreaseproductQuantity = () => {
     increaseproductQuantity(product.id);
+  };
+
+  const handleRemoveProducts = () => {
+    removeProducts(product.id);
   };
 
   return (
@@ -87,7 +91,7 @@ const CartItem = ({ product }: CartItemProps) => {
           size="icon"
           variant="outline"
           className="h-8 w-8 transition-colors hover:text-red-500"
-          onClick={() => {}}
+          onClick={handleRemoveProducts}
         >
           <TrashIcon size={18} />
         </Button>

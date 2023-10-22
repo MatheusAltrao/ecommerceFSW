@@ -15,6 +15,7 @@ interface ICartContext {
   addProductToCart: (product: CartProduct) => void;
   decreaseproductQuantity: (productId: string) => void;
   increaseproductQuantity: (productId: string) => void;
+  removeProducts: (productId: string) => void;
 }
 
 export const CartContext = createContext<ICartContext>({
@@ -25,6 +26,7 @@ export const CartContext = createContext<ICartContext>({
   addProductToCart: () => {},
   decreaseproductQuantity: () => {},
   increaseproductQuantity: () => {},
+  removeProducts: () => {},
 });
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
@@ -79,8 +81,6 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const increaseproductQuantity = (productId: string) => {
-    //ao inves de deletar quando a quatidade for zero colocar um disable no button e excluir pela lixeira
-
     setProducts((prev) =>
       prev.map((cartProduct) => {
         if (cartProduct.id === productId) {
@@ -95,6 +95,12 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
     );
   };
 
+  const removeProducts = (productId: string) => {
+    setProducts((prev) =>
+      prev.filter((cartProduct) => cartProduct.id !== productId),
+    );
+  };
+
   return (
     <div>
       <CartContext.Provider
@@ -103,6 +109,7 @@ const CartProvider = ({ children }: { children: ReactNode }) => {
           addProductToCart,
           decreaseproductQuantity,
           increaseproductQuantity,
+          removeProducts,
           cartTotalPrice: 0,
           cartBasePrice: 0,
           cartTotalDiscount: 0,
