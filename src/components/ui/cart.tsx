@@ -46,35 +46,37 @@ const Cart = () => {
         )}
       </div>
 
-      <div className="mt-4 flex flex-col items-center gap-2">
-        <div className="separator" />
+      {products.length > 0 && (
+        <div className="mt-4 flex flex-col items-center gap-2">
+          <div className="separator" />
 
-        <div className="flex w-full items-center justify-between">
-          <p className="text-sm font-light ">Subtotal</p>
-          <p className="text-sm font-light ">{formatedSubtotal}</p>
+          <div className="flex w-full items-center justify-between">
+            <p className="text-sm font-light ">Subtotal</p>
+            <p className="text-sm font-light ">{formatedSubtotal}</p>
+          </div>
+
+          <div className="separator" />
+
+          <div className="flex w-full items-center justify-between">
+            <p className="text-sm font-light ">Entrega</p>
+            <p className="text-sm font-light ">GRÁTIS</p>
+          </div>
+
+          <div className="separator" />
+
+          <div className="flex w-full items-center justify-between">
+            <p className="text-sm font-light ">Descontos</p>
+            <p className="text-sm font-light ">{formatedTotalDiscount}</p>
+          </div>
+
+          <div className="separator" />
+
+          <div className="flex w-full items-center justify-between">
+            <p className=" font-semibold ">Total</p>
+            <p className=" font-semibold ">{formatedTotal}</p>
+          </div>
         </div>
-
-        <div className="separator" />
-
-        <div className="flex w-full items-center justify-between">
-          <p className="text-sm font-light ">Entrega</p>
-          <p className="text-sm font-light ">GRÁTIS</p>
-        </div>
-
-        <div className="separator" />
-
-        <div className="flex w-full items-center justify-between">
-          <p className="text-sm font-light ">Descontos</p>
-          <p className="text-sm font-light ">{formatedTotalDiscount}</p>
-        </div>
-
-        <div className="separator" />
-
-        <div className="flex w-full items-center justify-between">
-          <p className=" font-semibold ">Total</p>
-          <p className=" font-semibold ">{formatedTotal}</p>
-        </div>
-      </div>
+      )}
     </div>
   );
 };
