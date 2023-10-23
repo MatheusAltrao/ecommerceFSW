@@ -33,22 +33,24 @@ const ProductsImages = ({ name, imagesUrls }: ProductsImagesProps) => {
 
       <div className="mt-8 grid grid-cols-4 gap-4">
         {imagesUrls.map((image) => (
-          <button
-            onClick={() => handleImageClick(image)}
-            key={image}
-            className={`flex h-24 items-center justify-center rounded border  bg-accent transition-colors ${
-              currentImage === image ? "border-primary" : "border-transparent"
-            }`}
-          >
-            <Image
-              src={image}
-              alt={name}
-              width={0}
-              height={0}
-              sizes="100vh"
-              className="h-auto max-h-[70%] w-auto max-w-[80%]"
-            />
-          </button>
+          <div key={image}>
+            <button
+              onClick={() => handleImageClick(image)}
+              key={image}
+              className={`flex h-24 items-center justify-center rounded border  bg-accent transition-colors ${
+                currentImage === image ? "border-primary" : "border-transparent"
+              }`}
+            >
+              <Image
+                src={image}
+                alt={name}
+                width={0}
+                height={0}
+                sizes="100vh"
+                className="h-auto max-h-[70%] w-auto max-w-[80%]"
+              />
+            </button>
+          </div>
         ))}
       </div>
     </div>
