@@ -1,6 +1,8 @@
+import { createCheckout } from "@/actions/checkout";
 import { Badge } from "@/components/ui/badge";
 import { computeProductTotalPrice } from "@/helpers/product";
 import { CartContext } from "@/providers/cart";
+import { loadStripe } from "@stripe/stripe-js";
 import { ShoppingCartIcon } from "lucide-react";
 import { useContext } from "react";
 import { Button } from "./button";
@@ -8,6 +10,15 @@ import CartItem from "./cartItem";
 
 const Cart = () => {
   const { products, total, subTotal, totalDiscount } = useContext(CartContext);
+
+  const handleFinishPurchase = async () => {
+    const checkout = await createCheckout(products);
+    const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
+
+    stripe?.redirectToCheckout({
+      sessionId: checkout.id,
+    });
+  };
 
   const formatedSubtotal = new Intl.NumberFormat("pt-BR", {
     style: "currency",
@@ -41,6 +52,7 @@ const Cart = () => {
           {products.length > 0 ? (
             products.map((product) => (
               <CartItem
+                key={product.id}
                 product={computeProductTotalPrice(product as any) as any}
               />
             ))
@@ -81,7 +93,9 @@ const Cart = () => {
             <p className=" font-semibold ">{formatedTotal}</p>
           </div>
 
-          <Button className="mt-8 w-full">FINALIZAR COMPRA</Button>
+          <Button onClick={handleFinishPurchase} className="mt-8 w-full">
+            FINALIZAR COMPRA
+          </Button>
         </div>
       )}
     </div>
