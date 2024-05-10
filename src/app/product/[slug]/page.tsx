@@ -33,6 +33,8 @@ const ProductDetails = async ({ params: { slug } }: ProductDetailsProps) => {
 
   if (!product) return null;
 
+  console.log(product.imageUrls);
+
   return (
     <div className="px-8 pb-10 pt-5">
       <ProductsImages imagesUrls={product.imageUrls} name={product.name} />

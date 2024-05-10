@@ -1,5 +1,4 @@
 "use client";
-
 import { ProductWithTotalPrice } from "@/helpers/product";
 import { ReactNode, createContext, useEffect, useMemo, useState } from "react";
 
@@ -36,12 +35,16 @@ export const CartContext = createContext<ICartContext>({
 });
 
 const CartProvider = ({ children }: { children: ReactNode }) => {
-  const [products, setProducts] = useState<CartProduct[]>(
-    JSON.parse(localStorage.getItem("@fsw-store/cart-products") || "[]"),
-  );
+  const [products, setProducts] = useState<CartProduct[]>([]);
 
   useEffect(() => {
-    localStorage.setItem("@fsw-store/cart-products", JSON.stringify(products));
+    // Ensure the code runs only on the client-side
+    if (typeof window !== "undefined") {
+      localStorage.setItem(
+        "@fsw-store/cart-products",
+        JSON.stringify(products),
+      );
+    }
   }, [products]);
 
   /* 

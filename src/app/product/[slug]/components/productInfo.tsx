@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import DiscountBadge from "@/components/ui/discountBadge";
 import { ProductWithTotalPrice } from "@/helpers/product";
 import { CartContext } from "@/providers/cart";
+import { formatPrice } from "@/utils/formatPrice";
 import { ArrowLeftIcon, ArrowRightIcon, TruckIcon } from "lucide-react";
 import { useContext, useState } from "react";
 
@@ -23,16 +24,6 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
     setQuantity((prev) => prev + 1);
   };
 
-  const formatedTotalPrice = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(product.totalPrice);
-
-  const formatedBasePrice = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(Number(product.basePrice));
-
   const handleAddToCard = () => {
     addProductToCart({ ...product, quantity });
   };
@@ -45,7 +36,9 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
 
       <div className="mt-3">
         <div className=" flex items-center gap-2">
-          <span className="text-xl font-semibold">{formatedTotalPrice}</span>
+          <span className="text-xl font-semibold">
+            {formatPrice(product.totalPrice)}
+          </span>
           {product.discountPercentage > 0 && (
             <DiscountBadge>
               <p>{product.discountPercentage}%</p>
@@ -53,7 +46,10 @@ const ProductInfo = ({ product }: ProductInfoProps) => {
           )}
         </div>
         <p className=" text-sm text-zinc-500">
-          de <span className="line-through ">{formatedBasePrice}</span>
+          de{" "}
+          <span className="line-through ">
+            {formatPrice(product.basePrice)}
+          </span>
         </p>
       </div>
 

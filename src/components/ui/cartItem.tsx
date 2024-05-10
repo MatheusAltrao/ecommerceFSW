@@ -1,4 +1,5 @@
 import { CartContext, CartProduct } from "@/providers/cart";
+import { formatPrice } from "@/utils/formatPrice";
 import { ArrowLeftIcon, ArrowRightIcon, TrashIcon } from "lucide-react";
 import Image from "next/image";
 import { useContext } from "react";
@@ -11,16 +12,6 @@ interface CartItemProps {
 const CartItem = ({ product }: CartItemProps) => {
   const { decreaseproductQuantity, increaseproductQuantity, removeProducts } =
     useContext(CartContext);
-
-  const formatedTotalPrice = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(product.totalPrice);
-
-  const formatedBasePrice = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(Number(product.basePrice));
 
   const handleDecreaseProduct = () => {
     decreaseproductQuantity(product.id);
@@ -54,10 +45,12 @@ const CartItem = ({ product }: CartItemProps) => {
           <p className="text-[10px]">{product.name}</p>
 
           <div className="flex items-center gap-2">
-            <p className="text-sm font-bold">{formatedTotalPrice}</p>
+            <p className="text-sm font-bold">
+              {formatPrice(product.totalPrice)}
+            </p>
             {product.discountPercentage > 0 && (
               <p className="text-xs line-through opacity-75">
-                {formatedBasePrice}
+                {formatPrice(product.basePrice)}
               </p>
             )}
           </div>

@@ -1,4 +1,5 @@
 import { ProductWithTotalPrice } from "@/helpers/product";
+import { formatPrice } from "@/utils/formatPrice";
 import Image from "next/image";
 import Link from "next/link";
 import DiscountBadge from "./discountBadge";
@@ -8,16 +9,6 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product }: ProductItemProps) => {
-  const formatedTotalPrice = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(product.totalPrice);
-
-  const formatedBasePrice = new Intl.NumberFormat("pt-BR", {
-    style: "currency",
-    currency: "BRL",
-  }).format(Number(product.basePrice));
-
   return (
     <Link href={`/product/${product.slug}`}>
       <div className="flex w-full flex-col gap-4">
@@ -48,16 +39,21 @@ const ProductItem = ({ product }: ProductItemProps) => {
 
           {product.discountPercentage > 0 && (
             <div className="my-1   ">
-              <span className="font-semibold ">{formatedTotalPrice}</span>
+              <span className="font-semibold ">
+                {" "}
+                {formatPrice(product.totalPrice)}
+              </span>
               <span className="ml-1 text-sm text-zinc-600 line-through ">
-                {formatedBasePrice}
+                {formatPrice(product.basePrice)}
               </span>
             </div>
           )}
 
           {product.discountPercentage == 0 && (
             <div className="my-1">
-              <span className="font-semibold ">{formatedBasePrice}</span>
+              <span className="font-semibold ">
+                {formatPrice(product.totalPrice)}
+              </span>
             </div>
           )}
         </div>
