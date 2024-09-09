@@ -11,7 +11,7 @@ const PromoBanner = ({ src, alt }: PromoBannerProps) => {
       src={src}
       width={0}
       height={0}
-      className="h-auto w-full object-cover"
+      className="h-auto w-full rounded-lg object-cover lg:hidden"
       sizes="100vw"
       alt={alt}
       priority={true}

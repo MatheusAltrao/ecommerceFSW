@@ -1,3 +1,6 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -16,15 +19,43 @@ model Category {
 }
 
 model Product {
-  id                 String   @id @default(uuid())
+  id                 String         @id @default(uuid())
   name               String
   slug               String
   description        String
-  basePrice          String //Decimal  @db.Decimal(8, 2) talvez Int
+  basePrice          Decimal        @db.Decimal(8, 2)
   imageUrls          String[]
   categoryId         String
-  category           Category @relation(fields: [categoryId], references: [id])
-  discountPercentage Int      @default(0)
+  category           Category       @relation(fields: [categoryId], references: [id])
+  discountPercentage Int            @default(0)
+  OrderProduct       OrderProduct[]
+  wishLists          WishList[]     @relation("WishListProducts")
+}
+
+model Order {
+  id            String         @id @default(uuid())
+  userId        String
+  user          User           @relation(fields: [userId], references: [id])
+  orderProducts OrderProduct[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @default(now()) @updatedAt
+  status        OrderStatus    @default(WAITING_FOR_PAYMENT)
+}
+
+enum OrderStatus {
+  WAITING_FOR_PAYMENT
+  PAYMENT_CONFIRMED
+}
+
+model OrderProduct {
+  id                 String  @id @default(uuid())
+  productId          String
+  product            Product @relation(fields: [productId], references: [id])
+  orderId            String
+  order              Order   @relation(fields: [orderId], references: [id])
+  basePrice          Decimal @db.Decimal(8, 2)
+  discountPercentage Int     @default(0)
+  quantity           Int
 }
 
 model Account {
@@ -55,13 +86,23 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
+  id            String     @id @default(cuid())
   name          String?
-  email         String?   @unique
+  email         String?    @unique
   emailVerified DateTime?
   image         String?
   accounts      Account[]
   sessions      Session[]
+  Order         Order[]
+  WishList      WishList[]
+}
+
+model WishList {
+  id       String    @id @default(uuid())
+  name     String
+  user     User      @relation(fields: [userId], references: [id])
+  userId   String
+  products Product[] @relation("WishListProducts")
 }
 
 model VerificationToken {
