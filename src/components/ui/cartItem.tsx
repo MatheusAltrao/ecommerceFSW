@@ -50,7 +50,7 @@ const CartItem = ({ product }: CartItemProps) => {
             </p>
             {product.discountPercentage > 0 && (
               <p className="text-xs line-through opacity-75">
-                {formatPrice(product.basePrice)}
+                {formatPrice(Number(product.basePrice))}
               </p>
             )}
           </div>

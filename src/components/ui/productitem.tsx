@@ -44,7 +44,7 @@ const ProductItem = ({ product }: ProductItemProps) => {
                 {formatPrice(product.totalPrice)}
               </span>
               <span className="ml-1 text-sm text-zinc-600 line-through ">
-                {formatPrice(product.basePrice)}
+                {formatPrice(Number(product.basePrice))}
               </span>
             </div>
           )}
